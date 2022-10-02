@@ -1,0 +1,24 @@
+{
+  "name": "reddit-videos-bot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "bot.js",
+  "type":"module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PaulSzilveszter/Reddit-Videos-Bot.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PaulSzilveszter/Reddit-Videos-Bot/issues"
+  },
+  "homepage": "https://github.com/PaulSzilveszter/Reddit-Videos-Bot#readme",
+  "dependencies": {
+    "node-fetch": "^3.2.10"
+  }
+  
+}
