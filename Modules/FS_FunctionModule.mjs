@@ -19,7 +19,7 @@ function initializeDirectory(filepath) {
 export function downloadFile(URL, filename) {
 
     const INIT_DIR = initializeDirectory(".")+"/"+filename;
-    console.log(INIT_DIR);
+    // console.log(INIT_DIR);
 
     const file = fs.createWriteStream(INIT_DIR);
 

@@ -2,9 +2,9 @@ import fetch from "node-fetch";
 import * as https from 'https';
 import * as fs from 'fs';
 
-import {downloadFile} from "./FS_FunctionModule.mjs"
-import {parseResults} from "./ParseModule.mjs"
-import {Post} from "./ClassesModule.mjs"
+import {downloadFile} from "./Modules/FS_FunctionModule.mjs"
+import {parseResults} from "./Modules/ParseModule.mjs"
+import {Post} from "./Modules/ClassesModule.mjs"
 // const https = require('https'); 
 // const fs = require('fs');
 
