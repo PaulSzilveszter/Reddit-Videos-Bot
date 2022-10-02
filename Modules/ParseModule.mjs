@@ -21,7 +21,7 @@ export const parseResults = (responses) => {
             if (secure_media.reddit_video != null) {
 
                 const VIDEO_URL = secure_media.reddit_video.fallback_url;
-                const AUDIO_URL = "https;//v.redd.it/" + VIDEO_URL.split('/')[3] + "/DASH_audio.mp4";
+                const AUDIO_URL = "https://v.redd.it/" + VIDEO_URL.split('/')[3] + "/DASH_audio.mp4";
 
                 //    console.log(`Video URL: ${VIDEO_URL}`);
                 //    console.log(`Audio URL: ${AUDIO_URL}`);

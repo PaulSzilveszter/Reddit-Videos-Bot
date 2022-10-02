@@ -2,7 +2,7 @@ import fetch from "node-fetch";
 import * as https from 'https';
 import * as fs from 'fs';
 
-import {downloadFile} from "./Modules/FS_FunctionModule.mjs"
+import {downloadFile, mergeFiles, downloadFiles} from "./Modules/FS_FunctionModule.mjs"
 import {parseResults} from "./Modules/ParseModule.mjs"
 import {Post} from "./Modules/ClassesModule.mjs"
 // const https = require('https'); 
@@ -48,7 +48,16 @@ const fetchPosts = async (subreddit, afterParam) => {
 
     // console.log(posts);
 
-    downloadFile(posts[0].video_url, "fisier.mp4");
+    console.log(posts[0])
+
+    // downloadFile(posts[0].video_url, "fisier.mp4");
+    // downloadFile(posts[0].audio_url, "fisier.mp3");
+
+    downloadFiles(posts[0], "file");
+    console.log("1");
+    await new Promise(r => setTimeout(r, 2000));
+    console.log("2");
+    mergeFiles(posts[0], "file");
 };
 
 
