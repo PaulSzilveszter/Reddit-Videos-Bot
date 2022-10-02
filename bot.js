@@ -1,8 +1,23 @@
+let posts =[]
+
+class Post{
+    constructor(video_url, audio_url){
+        this.video_url = video_url
+        this.audio_url = audio_url
+    }
+    get getVideoURL(){
+        return this.video_url;
+    }
+    get getAudioURL(){
+        return this.audio_url;
+    }
+}
+
 const postsPerRequest = 100;
-const maxPostsPerFetch = 500;
+const maxPostsPerFetch = 300;
 const maxRequests = maxPostsPerFetch / postsPerRequest;
 
-const responses = [];
+
 
 const subreddit = "funnyvideos";
 
@@ -10,7 +25,7 @@ const subreddit = "funnyvideos";
 
 // };
 
-
+const responses = [];
 
 const fetchPosts = async (subreddit, afterParam)=>{
     const response = await fetch(
@@ -29,6 +44,8 @@ const fetchPosts = async (subreddit, afterParam)=>{
     }
 
     parseResults(responses);
+    
+    console.log(posts);
 };
 
 const parseResults = (responses)=>{
@@ -39,30 +56,25 @@ const parseResults = (responses)=>{
     })
 
     allPosts.forEach(( {data:{secure_media}} )=>{
-        // secure_media.forEach((sal)=>{
-        //     console.log(sal);
-        // })
+    
         if(secure_media!=null){
-            // console.log(secure_media)
+        
         
             if(secure_media.reddit_video != null){
 
                const VIDEO_URL = secure_media.reddit_video.fallback_url;
                const AUDIO_URL = "https;//v.redd.it/" + VIDEO_URL.split('/')[3]+"/DASH_audio.mp4";
 
-               console.log(`Video URL: ${VIDEO_URL}`);
-               console.log(`Audio URL: ${AUDIO_URL}`);
+            //    console.log(`Video URL: ${VIDEO_URL}`);
+            //    console.log(`Audio URL: ${AUDIO_URL}`);
+
+                posts.push(new Post(VIDEO_URL, AUDIO_URL));
             }
 
         }
-        // if(secure_media.reddit_video!=null){
-        //     console.log(secure_media.reddit_video);
-        // }
+        
     })
-
+    
 };
 
-fetchPosts(subreddit);
-// const handleSubmit = ()=>{
-    
-// };
+fetchPosts(subreddit)
