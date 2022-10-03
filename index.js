@@ -62,8 +62,8 @@ const fetchPosts = async (subreddit, afterParam) => {
     mergeFiles(posts[0], "file0");
     mergeFiles(posts[1], "file1");
 
-    await new Promise(r => setTimeout(r, 2000));
-    console.log("3");
+    // await new Promise(r => setTimeout(r, 2000));
+    // console.log("3");
 };
 
 
