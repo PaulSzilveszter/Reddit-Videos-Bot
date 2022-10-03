@@ -52,12 +52,18 @@ const fetchPosts = async (subreddit, afterParam) => {
 
     // downloadFile(posts[0].video_url, "fisier.mp4");
     // downloadFile(posts[0].audio_url, "fisier.mp3");
-
-    downloadFiles(posts[0], "file");
+   
     console.log("1");
+    downloadFiles(posts[0], "file0");
+    downloadFiles(posts[1], "file1");
+   
     await new Promise(r => setTimeout(r, 2000));
     console.log("2");
-    mergeFiles(posts[0], "file");
+    mergeFiles(posts[0], "file0");
+    mergeFiles(posts[1], "file1");
+
+    await new Promise(r => setTimeout(r, 2000));
+    console.log("3");
 };
 
 

@@ -49,11 +49,15 @@ export function downloadFiles(post, filename){
     
 }
 export function mergeFiles(post, filename){
-    child_process.exec(`ffmpeg -i ${filename}.mp4 -i ${filename}.mp3 -c copy ${filename}_output.mp4`,
+    child_process.exec(`ffmpeg -i ${filename}.mp4 -i ${filename}.mp3 -c copy ${filename}_output.mp4
+
+    `
+    
+    ,
     {cwd: "./Assets"}
     ,function (error, stdout, stderr) {
-        console.log('stdout: ' + stdout);
-        console.log('stderr: ' + stderr);
+        // console.log('stdout: ' + stdout);
+        // console.log('stderr: ' + stderr);
         if (error !== null) {
              console.log('exec error: ' + error);
         }
