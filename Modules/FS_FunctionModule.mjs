@@ -1,12 +1,14 @@
-// import fetch from "node-fetch";
 import * as https from 'https';
 import * as fs from 'fs';
 import * as child_process from 'child_process';
 
-const filepath=".";
+import {OUTPUT_DIRECTORY_PATH, OUTPUT_DIRECTORY_NAME} from "../running_parameters.js";
 
-function initializeDirectory() {
-    const FINAL_PATH = filepath + "/Assets";
+import { handleChildProcessErros, deleteFile } from './ErrorHandlingModule.mjs';
+import { stderr, stdout } from 'process';
+
+function initializeOutputDirectory(filepath) {
+    const FINAL_PATH = filepath + `/${OUTPUT_DIRECTORY_NAME}`;
     
     const exists = fs.existsSync(FINAL_PATH);
     if (exists === true) {
@@ -19,14 +21,11 @@ function initializeDirectory() {
     return FINAL_PATH;
 }
 
-export function downloadFile(URL, filename) {
+function downloadFile(URL, filename) {
 
-    const INIT_DIR = initializeDirectory()+"/"+filename;
-    // console.log(INIT_DIR);
+    const initializedDirectory = initializeOutputDirectory(OUTPUT_DIRECTORY_PATH)+"/"+filename;
 
-    const file = fs.createWriteStream(INIT_DIR);
-
-
+    const file = fs.createWriteStream(initializedDirectory);
 
     const request = https.get(URL, function (response) {
 
@@ -35,31 +34,46 @@ export function downloadFile(URL, filename) {
         // after download completed close filestream
         file.on("finish", () => {
             file.close();
-            console.log("Download Completed");
+            console.log(`Downloaded ${filename}`);
         });
     });
 }
 
-
-
-export function downloadFiles(post, filename){
+export function downloadAudioAndVideoFiles(post, filename){
     downloadFile(post.video_url, filename+".mp4");
-    downloadFile(post.audio_url,  filename+".mp3");
+    downloadFile(post.audio_url, filename+".mp3");
     
     
 }
-export function mergeFiles(post, filename){
-    child_process.exec(`ffmpeg -i ${filename}.mp4 -i ${filename}.mp3 -c copy ${filename}_output.mp4
 
-    `
-    
+export function mergeAudioAndVideoFiles(post, filename){
+    child_process.exec(`ffmpeg -i ${filename}.mp4 -i ${filename}.mp3 -c copy ${filename}_output.mp4`
     ,
-    {cwd: "./Assets"}
-    ,function (error, stdout, stderr) {
-        // console.log('stdout: ' + stdout);
-        // console.log('stderr: ' + stderr);
-        if (error !== null) {
-             console.log('exec error: ' + error);
-        }
-    });
+    {cwd: `./${OUTPUT_DIRECTORY_NAME}`}
+    ,
+    (error, stdout, stderr)=>{handleChildProcessErros(error, stdout, stderr)}
+    );
+    
+    console.log(`Merged ${filename}`);
+    
+
+
+}
+
+export function mergeTwoVideoFiles(filename1, filename2, outputVideoName){
+    child_process.exec(`ffmpeg -i ${filename1}.mp4 -c copy intermediate1.ts
+    ffmpeg -i ${filename2}.mp4 -c copy intermediate2.ts
+    ffmpeg -i "concat:intermediate1.ts|intermediate2.ts" -c copy ${outputVideoName}.mp4`
+    ,
+    {cwd: `./${OUTPUT_DIRECTORY_NAME}`}
+    ,
+    (error, stdout, stderr)=>{handleChildProcessErros(error, stdout, stderr)}
+    );
+    
+    
+
+
+    console.log(`Merged ${filename1}.mp4 with ${filename2}.mp4 in ${outputVideoName}.mp4`);
+
+    
 }

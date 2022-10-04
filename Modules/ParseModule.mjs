@@ -1,7 +1,3 @@
-// import fetch from "node-fetch";
-import * as https from 'https';
-import * as fs from 'fs';
-
 import { Post } from './ClassesModule.mjs';
 
 export const parseResults = (responses) => {
