@@ -8,6 +8,9 @@ import { SUBREDDIT, postsPerRequest, maxPostsPerFetch, maxRequests } from "./run
 import { Post } from "./Modules/ClassesModule.mjs";
 import { parseResults } from "./Modules/ParseModule.mjs";
 import { mergeAudioAndVideoFiles, downloadAudioAndVideoFiles , mergeTwoVideoFiles} from "./Modules/FS_FunctionModule.mjs";
+import {getVideoDuration} from "./Modules/FfmpegModule.mjs";
+
+
 
 
 let posts = []
@@ -48,6 +51,11 @@ const fetchAndRun = async (subreddit, afterParam) => {
     console.log("\n3. Merging video files");
     mergeTwoVideoFiles("file0_output", "file1_output", "output");
 
+    await new Promise(r => setTimeout(r, 2000));
+
+    console.log("\n4. Checking Video length");
+
+    getVideoDuration('output.mp4');
 
 };
 

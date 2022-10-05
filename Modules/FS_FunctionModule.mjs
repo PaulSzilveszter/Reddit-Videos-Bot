@@ -49,7 +49,7 @@ export function downloadAudioAndVideoFiles(post, filename){
 export function mergeAudioAndVideoFiles(post, filename){
     child_process.exec(`ffmpeg -i ${filename}.mp4 -i ${filename}.mp3 -c copy ${filename}_output.mp4`
     ,
-    {cwd: `./${OUTPUT_DIRECTORY_NAME}`}
+    {cwd: `${OUTPUT_DIRECTORY_PATH}/${OUTPUT_DIRECTORY_NAME}`}
     ,
     (error, stdout, stderr)=>{handleChildProcessErros(error, stdout, stderr)}
     );
@@ -65,7 +65,7 @@ export function mergeTwoVideoFiles(filename1, filename2, outputVideoName){
     ffmpeg -i ${filename2}.mp4 -c copy intermediate2.ts
     ffmpeg -i "concat:intermediate1.ts|intermediate2.ts" -c copy ${outputVideoName}.mp4`
     ,
-    {cwd: `./${OUTPUT_DIRECTORY_NAME}`}
+    {cwd: `${OUTPUT_DIRECTORY_PATH}/${OUTPUT_DIRECTORY_NAME}`}
     ,
     (error, stdout, stderr)=>{handleChildProcessErros(error, stdout, stderr)}
     );
