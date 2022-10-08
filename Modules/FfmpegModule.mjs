@@ -5,11 +5,11 @@ import { OUTPUT_DIRECTORY_PATH, OUTPUT_DIRECTORY_NAME, CHILD_PROCESS_DIR } from 
 
 import { handleChildProcessErros } from "./ErrorHandlingModule.mjs"
 
-export async function getVideoDuration(filepath) {
+export async function getVideoDuration(filename) {
 
     let outputData;
 
-    let ls = child_process.spawn(`ffprobe`, [`-i`, `${filepath}`, `-v`, `quiet`, `-show_entries`, `format=duration`, `-hide_banner`, `-of`, `default=noprint_wrappers=1:nokey=1`, `-sexagesimal`
+    let ls = child_process.spawn(`ffprobe`, [`-i`, `${filename}`, `-v`, `quiet`, `-show_entries`, `format=duration`, `-hide_banner`, `-of`, `default=noprint_wrappers=1:nokey=1`/*, `-sexagesimal`*/
     ],
         CHILD_PROCESS_DIR
     );
@@ -31,12 +31,15 @@ export async function getVideoDuration(filepath) {
 
     const {stdout} = await ls;
     outputData = await stdout.on('data', (data) => {
-            console.log(`Video length: ${data.toString()}`);
+            console.log(`Video length formated: ${data.toString()}`);
             outputData = data.toString();
             // console.log(outputData);
     })
+
+    await new Promise(r => setTimeout(r, 2000));
+
+    return outputData;
     
-    await console.log(outputData);
 
    
 

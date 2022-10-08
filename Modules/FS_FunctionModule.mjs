@@ -61,8 +61,8 @@ export function mergeAudioAndVideoFiles(post, filename){
 }
 
 export function mergeTwoVideoFiles(filename1, filename2, outputVideoName){
-    child_process.exec(`ffmpeg -i ${filename1}.mp4 -c copy intermediate1.ts
-    ffmpeg -i ${filename2}.mp4 -c copy intermediate2.ts
+    child_process.exec(`ffmpeg -i ${filename2}.mp4 -c copy intermediate1.ts
+    ffmpeg -i ${filename1}.mp4 -c copy intermediate2.ts
     ffmpeg -i "concat:intermediate1.ts|intermediate2.ts" -c copy ${outputVideoName}.mp4`
     ,
     {cwd: `${OUTPUT_DIRECTORY_PATH}/${OUTPUT_DIRECTORY_NAME}`}
@@ -75,5 +75,22 @@ export function mergeTwoVideoFiles(filename1, filename2, outputVideoName){
 
     console.log(`Merged ${filename1}.mp4 with ${filename2}.mp4 in ${outputVideoName}.mp4`);
 
+   
+
     
+}
+
+export function deleteUnnecesaryFiles(){
+    deleteFile(OUTPUT_DIRECTORY_PATH + "/"+OUTPUT_DIRECTORY_NAME+"/"+ "file0.mp4");
+    deleteFile(OUTPUT_DIRECTORY_PATH + "/"+OUTPUT_DIRECTORY_NAME+"/"+ "file0.mp3");
+    deleteFile(OUTPUT_DIRECTORY_PATH + "/"+OUTPUT_DIRECTORY_NAME+"/"+ "file0_output.mp4");
+    
+    deleteFile(OUTPUT_DIRECTORY_PATH + "/"+OUTPUT_DIRECTORY_NAME+"/"+ "file1.mp4");
+    deleteFile(OUTPUT_DIRECTORY_PATH + "/"+OUTPUT_DIRECTORY_NAME+"/"+ "file1.mp3");
+    deleteFile(OUTPUT_DIRECTORY_PATH + "/"+OUTPUT_DIRECTORY_NAME+"/"+ "file1_output.mp4");
+
+    deleteFile(OUTPUT_DIRECTORY_PATH + "/"+OUTPUT_DIRECTORY_NAME+"/"+ "intermediate1.ts");
+    deleteFile(OUTPUT_DIRECTORY_PATH + "/"+OUTPUT_DIRECTORY_NAME+"/"+ "intermediate2.ts");
+
+    console.log("Deleted unnecesary files!");
 }

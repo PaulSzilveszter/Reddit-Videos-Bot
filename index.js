@@ -3,12 +3,13 @@ import * as https from 'https';
 import * as fs from 'fs';
 import * as child_process from 'child_process';
 
-import { SUBREDDIT, postsPerRequest, maxPostsPerFetch, maxRequests } from "./running_parameters.js";
+import { SUBREDDIT, postsPerRequest, maxPostsPerFetch, maxRequests, OUTPUT_DIRECTORY_PATH, OUTPUT_DIRECTORY_NAME } from "./running_parameters.js";
 
 import { Post } from "./Modules/ClassesModule.mjs";
 import { parseResults } from "./Modules/ParseModule.mjs";
-import { mergeAudioAndVideoFiles, downloadAudioAndVideoFiles , mergeTwoVideoFiles} from "./Modules/FS_FunctionModule.mjs";
+import { mergeAudioAndVideoFiles, downloadAudioAndVideoFiles , mergeTwoVideoFiles, deleteUnnecesaryFiles} from "./Modules/FS_FunctionModule.mjs";
 import {getVideoDuration} from "./Modules/FfmpegModule.mjs";
+import { deleteFile } from "./Modules/ErrorHandlingModule.mjs";
 
 
 
@@ -36,6 +37,11 @@ const fetchAndRun = async (subreddit, afterParam) => {
         posts.push(...parseResults(responses));
     }
 
+    // Running the program
+    //###########################################
+
+
+
     console.log("\n1. Downloading ");
     downloadAudioAndVideoFiles(posts[0], "file0");
     downloadAudioAndVideoFiles(posts[1], "file1");
@@ -54,8 +60,9 @@ const fetchAndRun = async (subreddit, afterParam) => {
     await new Promise(r => setTimeout(r, 2000));
 
     console.log("\n4. Checking Video length");
+    console.log(await getVideoDuration('output.mp4'));
 
-    getVideoDuration('output.mp4');
+    deleteUnnecesaryFiles()
 
 };
 

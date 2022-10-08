@@ -7,9 +7,9 @@ export const  handleChildProcessErros =(error, stdout, stderr)=> {
          console.log('exec error: ' + error);
     }
 }
-export function deleteFile(filenpath){
-    fs.unlink(filenpath, (err) => {
+export function deleteFile(filepath){
+    fs.unlink(filepath, (err) => {
         if (err) throw err;
-        console.log(`${filenpath} was deleted!`);
+        console.log(`${filepath} was deleted!`);
       });
 }
