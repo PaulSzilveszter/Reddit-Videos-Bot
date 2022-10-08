@@ -2,7 +2,7 @@ import * as https from 'https';
 import * as fs from 'fs';
 import * as child_process from 'child_process';
 
-import {OUTPUT_DIRECTORY_PATH, OUTPUT_DIRECTORY_NAME} from "../running_parameters.js";
+import {OUTPUT_DIRECTORY_PATH, OUTPUT_DIRECTORY_NAME, CHILD_PROCESS_DIR} from "../running_parameters.js";
 
 import { handleChildProcessErros, deleteFile } from './ErrorHandlingModule.mjs';
 import { stderr, stdout } from 'process';
@@ -46,7 +46,7 @@ export function downloadAudioAndVideoFiles(post, filename){
     
 }
 
-export function mergeAudioAndVideoFiles(post, filename){
+export async function mergeAudioAndVideoFiles(post, filename){
     child_process.exec(`ffmpeg -i ${filename}.mp4 -i ${filename}.mp3 -c copy ${filename}_output.mp4`
     ,
     {cwd: `${OUTPUT_DIRECTORY_PATH}/${OUTPUT_DIRECTORY_NAME}`}
@@ -54,7 +54,20 @@ export function mergeAudioAndVideoFiles(post, filename){
     (error, stdout, stderr)=>{handleChildProcessErros(error, stdout, stderr)}
     );
     
+    // await new Promise(r => setTimeout(r, 750));
+
+
+    // child_process.exec(`ffmpeg -i temp_output.mp4 -f lavfi -i anullsrc=channel_layout=stereo:sample_rate=44100 \
+    // -c:v copy -shortest ${filename}_output.mp4`)
+
+    // await new Promise(r => setTimeout(r, 750));
+
+    
+    // deleteFile(OUTPUT_DIRECTORY_PATH + "/"+OUTPUT_DIRECTORY_NAME+"/"+ "temp_output.mp4");
+
     console.log(`Merged ${filename}`);
+
+
     
 
 
@@ -88,6 +101,21 @@ export function deleteUnnecesaryFiles(){
     deleteFile(OUTPUT_DIRECTORY_PATH + "/"+OUTPUT_DIRECTORY_NAME+"/"+ "file1.mp4");
     deleteFile(OUTPUT_DIRECTORY_PATH + "/"+OUTPUT_DIRECTORY_NAME+"/"+ "file1.mp3");
     deleteFile(OUTPUT_DIRECTORY_PATH + "/"+OUTPUT_DIRECTORY_NAME+"/"+ "file1_output.mp4");
+
+    deleteFile(OUTPUT_DIRECTORY_PATH + "/"+OUTPUT_DIRECTORY_NAME+"/"+ "intermediate1.ts");
+    deleteFile(OUTPUT_DIRECTORY_PATH + "/"+OUTPUT_DIRECTORY_NAME+"/"+ "intermediate2.ts");
+
+    console.log("Deleted unnecesary files!");
+}
+
+export function deleteUnnecesaryFiles2(){
+    deleteFile(OUTPUT_DIRECTORY_PATH + "/"+OUTPUT_DIRECTORY_NAME+"/"+ "file0.mp4");
+    deleteFile(OUTPUT_DIRECTORY_PATH + "/"+OUTPUT_DIRECTORY_NAME+"/"+ "file0.mp3");
+    deleteFile(OUTPUT_DIRECTORY_PATH + "/"+OUTPUT_DIRECTORY_NAME+"/"+ "file0_output.mp4");
+    
+    // deleteFile(OUTPUT_DIRECTORY_PATH + "/"+OUTPUT_DIRECTORY_NAME+"/"+ "file1.mp4");
+    // deleteFile(OUTPUT_DIRECTORY_PATH + "/"+OUTPUT_DIRECTORY_NAME+"/"+ "file1.mp3");
+    // deleteFile(OUTPUT_DIRECTORY_PATH + "/"+OUTPUT_DIRECTORY_NAME+"/"+ "file1_output.mp4");
 
     deleteFile(OUTPUT_DIRECTORY_PATH + "/"+OUTPUT_DIRECTORY_NAME+"/"+ "intermediate1.ts");
     deleteFile(OUTPUT_DIRECTORY_PATH + "/"+OUTPUT_DIRECTORY_NAME+"/"+ "intermediate2.ts");

@@ -38,7 +38,7 @@ export async function getVideoDuration(filename) {
 
     await new Promise(r => setTimeout(r, 2000));
 
-    return outputData;
+    return Number(outputData);
     
 
    
