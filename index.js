@@ -100,6 +100,7 @@ const fetchAndRun = async (subreddit, afterParam) => {
             await new Promise(r => setTimeout(r, 2000));
 
             console.log("\n3. Merging video files");
+            await new Promise(r => setTimeout(r, 2000));
             mergeTwoVideoFiles("file0_output", "file1_output", 'output' + currentVideoIndex);
 
             await new Promise(r => setTimeout(r, 2000));
@@ -129,6 +130,7 @@ const fetchAndRun = async (subreddit, afterParam) => {
             await new Promise(r => setTimeout(r, 2000));
 
             console.log("\n3. Merging video files");
+            await new Promise(r => setTimeout(r, 2000));
             mergeTwoVideoFiles("file0_output", "output" + (currentVideoIndex - 1), 'output' + currentVideoIndex);
 
             await new Promise(r => setTimeout(r, 2000));
@@ -142,7 +144,7 @@ const fetchAndRun = async (subreddit, afterParam) => {
             currentVideoLength += length;
 
             deleteUnnecesaryFiles2();
-            deleteFile(OUTPUT_DIRECTORY_PATH + "/" + OUTPUT_DIRECTORY_NAME + "/" + "output" + (currentVideoIndex - 1) + ".mp4");
+            deleteFile(OUTPUT_DIRECTORY_PATH + "/" + OUTPUT_DIRECTORY_NAME + "/" + "output" + (currentVideoIndex -1) + ".mp4");
         }
 
 
@@ -157,6 +159,8 @@ const fetchAndRun = async (subreddit, afterParam) => {
 
 
     }
+
+    console.log(currentVideoLength);
 
 };
 

@@ -7,11 +7,11 @@ export const postsPerRequest = 100;
 export const maxPostsPerFetch = 300;
 export const maxRequests = maxPostsPerFetch / postsPerRequest;
 
-export const SUBREDDIT = "funnyvideos";
+export const SUBREDDIT = "funnyvideos/new";
 
 // Video creation parameters
 //###########################################################
 
-export const VIDEO_LENGTH = 120 // in seconds
+export const VIDEO_LENGTH = 600 // in seconds
 
 

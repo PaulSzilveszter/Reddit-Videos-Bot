@@ -54,13 +54,13 @@ export async function mergeAudioAndVideoFiles(post, filename){
     (error, stdout, stderr)=>{handleChildProcessErros(error, stdout, stderr)}
     );
     
-    // await new Promise(r => setTimeout(r, 750));
+    await new Promise(r => setTimeout(r, 1000));
 
 
-    // child_process.exec(`ffmpeg -i temp_output.mp4 -f lavfi -i anullsrc=channel_layout=stereo:sample_rate=44100 \
-    // -c:v copy -shortest ${filename}_output.mp4`)
+    child_process.exec(`ffmpeg -i temp_output.mp4 -f lavfi -i anullsrc=channel_layout=stereo:sample_rate=44100 \
+    -c:v copy -shortest ${filename}_output.mp4`)
 
-    // await new Promise(r => setTimeout(r, 750));
+    await new Promise(r => setTimeout(r, 1000));
 
     
     // deleteFile(OUTPUT_DIRECTORY_PATH + "/"+OUTPUT_DIRECTORY_NAME+"/"+ "temp_output.mp4");
@@ -74,8 +74,8 @@ export async function mergeAudioAndVideoFiles(post, filename){
 }
 
 export function mergeTwoVideoFiles(filename1, filename2, outputVideoName){
-    child_process.exec(`ffmpeg -i ${filename2}.mp4 -c copy intermediate1.ts
-    ffmpeg -i ${filename1}.mp4 -c copy intermediate2.ts
+    child_process.exec(`ffmpeg -i ${filename1}.mp4 -c copy intermediate1.ts
+    ffmpeg -i ${filename2}.mp4 -c copy intermediate2.ts
     ffmpeg -i "concat:intermediate1.ts|intermediate2.ts" -c copy ${outputVideoName}.mp4`
     ,
     {cwd: `${OUTPUT_DIRECTORY_PATH}/${OUTPUT_DIRECTORY_NAME}`}
