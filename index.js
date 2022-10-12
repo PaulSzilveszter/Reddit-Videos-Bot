@@ -107,7 +107,7 @@ const fetchAndRun = async (subreddit, afterParam) => {
 
             console.log("\n4. Checking Video length");
 
-            let length = await getVideoDuration('output' + currentVideoIndex + '.mp4')
+            let length = await getVideoDuration('output' + currentVideoIndex+ '.mp4')
 
             console.log(length);
 
@@ -137,14 +137,14 @@ const fetchAndRun = async (subreddit, afterParam) => {
 
             console.log("\n4. Checking Video length");
 
-            let length = await getVideoDuration('output' + currentVideoIndex + '.mp4')
+            let length = await getVideoDuration("file0_output" + '.mp4')
 
             console.log(length);
 
             currentVideoLength += length;
 
             deleteUnnecesaryFiles2();
-            deleteFile(OUTPUT_DIRECTORY_PATH + "/" + OUTPUT_DIRECTORY_NAME + "/" + "output" + (currentVideoIndex -1) + ".mp4");
+            deleteFile(OUTPUT_DIRECTORY_PATH + "/" + OUTPUT_DIRECTORY_NAME + "/" + "output" + (currentVideoIndex - 1) + ".mp4");
         }
 
 
