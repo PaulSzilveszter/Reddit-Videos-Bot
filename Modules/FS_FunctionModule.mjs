@@ -25,18 +25,44 @@ function downloadFile(URL, filename) {
 
     const initializedDirectory = initializeOutputDirectory(OUTPUT_DIRECTORY_PATH) + "/" + filename;
 
-    const file = fs.createWriteStream(initializedDirectory);
 
-    const request = https.get(URL, function (response) {
+    // const file = fs.createWriteStream(initializedDirectory);
 
-        response.pipe(file);
+    // const request = https.get(URL, function (response) {
 
-        // after download completed close filestream
-        file.on("finish", () => {
-            file.close();
-            console.log(`Downloaded ${filename}`);
-        });
+    //     response.pipe(file);
+
+    //     // after download completed close filestream
+    //     file.on("finish", () => {
+    //         file.close();
+    //         console.log(`Downloaded ${filename}`);
+    //     });
+    // });
+
+    //###################################
+
+    child_process.execFileSync('curl', ['-o', filename, URL], {
+        cwd: `${OUTPUT_DIRECTORY_PATH}/${OUTPUT_DIRECTORY_NAME}`,
+        encoding: 'utf8',
+        stdio: ['ignore', 'ignore', 'pipe']
     });
+
+    //###############################################################################
+
+    // const file = fs.appendFileSync(initializedDirectory);
+
+    // const request = https.get(URL, function (response) {
+
+    //     // response.pipe(file);
+
+    //     console.log(response)
+
+    //     // after download completed close filestream
+    //     // file.on("finish", () => {
+    //     //     file.close();
+    //     //     console.log(`Downloaded ${filename}`);
+    //     // });
+    // });
 }
 
 export function downloadAudioAndVideoFiles(post, filename) {
@@ -51,13 +77,13 @@ export function mergeAudioAndVideoFiles(post, filename) {
         ,
         {
             cwd: `${OUTPUT_DIRECTORY_PATH}/${OUTPUT_DIRECTORY_NAME}`,
-            stdio: ['ignore', 'ignore', 'ignore']
+            stdio: ['ignore', 'ignore', 'pipe']
         }
         // ,
         // (error, stdout, stderr)=>{handleChildProcessErros(error, stdout, stderr)}
     );
 
-    console.log("111111111111111111111111111111111");
+    // console.log("111111111111111111111111111111111");
 
     // await new Promise(r => setTimeout(r, 1000));
 
@@ -75,7 +101,7 @@ export function mergeAudioAndVideoFiles(post, filename) {
 
     // await new Promise(r => setTimeout(r, 1000));
 
-    console.log("22222222222222222222222222222");
+    // console.log("22222222222222222222222222222");
     // deleteFile(OUTPUT_DIRECTORY_PATH + "/"+OUTPUT_DIRECTORY_NAME+"/"+ "temp_output.mp4");
 
     console.log(`Merged ${filename}`);
@@ -91,8 +117,10 @@ export function mergeTwoVideoFiles(filename1, filename2, outputVideoName) {
     ffmpeg -i ${filename2}.mp4 -c copy intermediate2.ts
     ffmpeg -i "concat:intermediate1.ts|intermediate2.ts" -c copy ${outputVideoName}.mp4`
         ,
-        { cwd: `${OUTPUT_DIRECTORY_PATH}/${OUTPUT_DIRECTORY_NAME}` ,
-        stdio: ['ignore', 'ignore', 'ignore']}
+        {
+            cwd: `${OUTPUT_DIRECTORY_PATH}/${OUTPUT_DIRECTORY_NAME}`,
+            stdio: ['ignore', 'ignore', 'ignore']
+        }
         ,
         (error, stdout, stderr) => { handleChildProcessErros(error, stdout, stderr) }
     );

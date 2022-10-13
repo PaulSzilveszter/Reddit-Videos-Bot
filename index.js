@@ -18,7 +18,99 @@ let currentVideoIndex = 0;
 let posts = []
 const responses = [];
 
+function formatVideos(currentVideoIndex, VIDEO_LENGTH, posts) {
+    while (currentVideoLength < VIDEO_LENGTH) {
 
+
+        console.log("#########################")
+        console.log(currentVideoIndex, "\nlength:", currentVideoLength);
+        console.log("=========================");
+
+
+        if (currentVideoIndex === 0) {
+
+            console.log("\n1. Downloading ");
+            downloadAudioAndVideoFiles(posts[0], "file0");
+
+
+
+            //deleteFile(OUTPUT_DIRECTORY_PATH + "/"+OUTPUT_DIRECTORY_NAME+"/"+ "temp_output.mp4");
+
+            downloadAudioAndVideoFiles(posts[1], "file1");
+
+
+            // deleteFile(OUTPUT_DIRECTORY_PATH + "/"+OUTPUT_DIRECTORY_NAME+"/"+ "temp_output.mp4");
+
+            console.log("\n2. Merging audio with video");
+            mergeAudioAndVideoFiles(posts[0], "file0");
+
+
+
+            mergeAudioAndVideoFiles(posts[1], "file1");
+
+
+
+            console.log("\n3. Merging video files");
+            // await new Promise(r => setTimeout(r, 1500));
+            mergeTwoVideoFiles("file0_output", "file1_output", 'output' + currentVideoIndex);
+
+            // await new Promise(r => setTimeout(r, 1500));
+
+            console.log("\n4. Checking Video length");
+
+            let length = getVideoDuration('output' + currentVideoIndex + '.mp4')
+
+            console.log(length);
+
+            currentVideoLength += length;
+
+            deleteUnnecesaryFiles();
+
+        }
+        else {
+
+            console.log("\n1. Downloading ");
+            downloadAudioAndVideoFiles(posts[currentVideoIndex + 1], "file0");
+
+
+
+
+            console.log("\n2. Merging audio with video");
+            mergeAudioAndVideoFiles(posts[currentVideoIndex + 1], "file0");
+
+
+
+            console.log("\n3. Merging video files");
+
+            mergeTwoVideoFiles("file0_output", "output" + (currentVideoIndex - 1), 'output' + currentVideoIndex);
+
+
+
+            console.log("\n4. Checking Video length");
+
+            let length = getVideoDuration("file0_output" + '.mp4')
+
+            console.log(length);
+
+            currentVideoLength += length;
+
+            deleteUnnecesaryFiles2();
+            deleteFile(OUTPUT_DIRECTORY_PATH + "/" + OUTPUT_DIRECTORY_NAME + "/" + "output" + (currentVideoIndex - 1) + ".mp4");
+        }
+
+
+
+
+
+        console.log("&&&&&&&&&&&&&&&&&&&&&&&&&\n")
+
+
+
+        currentVideoIndex++;
+
+
+    }
+}
 
 const fetchAndRun = async (subreddit, afterParam) => {
 
@@ -40,127 +132,101 @@ const fetchAndRun = async (subreddit, afterParam) => {
         posts.push(...parseResults(responses));
     }
 
-    // Running the program
-    //###########################################
+    formatVideos(currentVideoIndex, VIDEO_LENGTH, posts);
 
-    /*
-    {
-        console.log("\n1. Downloading ");
-        downloadAudioAndVideoFiles(posts[0], "file0");
-        downloadAudioAndVideoFiles(posts[1], "file1");
-    
-        await new Promise(r => setTimeout(r, 1500));
-    
-        console.log("\n2. Merging audio with video");
-        mergeAudioAndVideoFiles(posts[0], "file0");
-        mergeAudioAndVideoFiles(posts[1], "file1");
-    
-        await new Promise(r => setTimeout(r, 1500));
-    
-        console.log("\n3. Merging video files");
-        mergeTwoVideoFiles("file0_output", "file1_output", "output");
-    
-        await new Promise(r => setTimeout(r, 1500));
-    
-        console.log("\n4. Checking Video length");
-        console.log(await getVideoDuration('output.mp4'));
-    
-        deleteUnnecesaryFiles();
-    }*/
+    // while (currentVideoLength < VIDEO_LENGTH) {
+    //     await new Promise(r => setTimeout(r, 1000));
 
-    while (currentVideoLength < VIDEO_LENGTH) {
-        await new Promise(r => setTimeout(r, 1000));
-
-        console.log("#########################")
-        console.log(currentVideoIndex, "\nlength:", currentVideoLength);
-        console.log("=========================");
+    //     console.log("#########################")
+    //     console.log(currentVideoIndex, "\nlength:", currentVideoLength);
+    //     console.log("=========================");
 
 
-        if (currentVideoIndex === 0) {
+    //     if (currentVideoIndex === 0) {
 
-            console.log("\n1. Downloading ");
-            downloadAudioAndVideoFiles(posts[0], "file0");
-
-
-            await new Promise(r => setTimeout(r, 1500));
-            //deleteFile(OUTPUT_DIRECTORY_PATH + "/"+OUTPUT_DIRECTORY_NAME+"/"+ "temp_output.mp4");
-
-            downloadAudioAndVideoFiles(posts[1], "file1");
-
-            await new Promise(r => setTimeout(r, 1500));
-            // deleteFile(OUTPUT_DIRECTORY_PATH + "/"+OUTPUT_DIRECTORY_NAME+"/"+ "temp_output.mp4");
-
-            console.log("\n2. Merging audio with video");
-            await mergeAudioAndVideoFiles(posts[0], "file0");
-
-            await new Promise(r => setTimeout(r, 1500));
-
-            await mergeAudioAndVideoFiles(posts[1], "file1");
-
-            await new Promise(r => setTimeout(r, 1500));
-
-            console.log("\n3. Merging video files");
-            await new Promise(r => setTimeout(r, 1500));
-            mergeTwoVideoFiles("file0_output", "file1_output", 'output' + currentVideoIndex);
-
-            await new Promise(r => setTimeout(r, 1500));
-
-            console.log("\n4. Checking Video length");
-
-            let length = await getVideoDuration('output' + currentVideoIndex+ '.mp4')
-
-            console.log(length);
-
-            currentVideoLength += length;
-
-            deleteUnnecesaryFiles();
-
-        }
-        else {
-
-            console.log("\n1. Downloading ");
-            downloadAudioAndVideoFiles(posts[currentVideoIndex + 1], "file0");
+    //         console.log("\n1. Downloading ");
+    //         downloadAudioAndVideoFiles(posts[0], "file0");
 
 
-            await new Promise(r => setTimeout(r, 1500));
+    //         await new Promise(r => setTimeout(r, 1500));
+    //         //deleteFile(OUTPUT_DIRECTORY_PATH + "/"+OUTPUT_DIRECTORY_NAME+"/"+ "temp_output.mp4");
 
-            console.log("\n2. Merging audio with video");
-            mergeAudioAndVideoFiles(posts[currentVideoIndex + 1], "file0");
+    //         downloadAudioAndVideoFiles(posts[1], "file1");
 
-            await new Promise(r => setTimeout(r, 1500));
+    //         await new Promise(r => setTimeout(r, 1500));
+    //         // deleteFile(OUTPUT_DIRECTORY_PATH + "/"+OUTPUT_DIRECTORY_NAME+"/"+ "temp_output.mp4");
 
-            console.log("\n3. Merging video files");
-            await new Promise(r => setTimeout(r, 1500));
-            mergeTwoVideoFiles("file0_output", "output" + (currentVideoIndex - 1), 'output' + currentVideoIndex);
+    //         console.log("\n2. Merging audio with video");
+    //         await mergeAudioAndVideoFiles(posts[0], "file0");
 
-            await new Promise(r => setTimeout(r, 1500));
+    //         await new Promise(r => setTimeout(r, 1500));
 
-            console.log("\n4. Checking Video length");
+    //         await mergeAudioAndVideoFiles(posts[1], "file1");
 
-            let length = await getVideoDuration("file0_output" + '.mp4')
+    //         await new Promise(r => setTimeout(r, 1500));
 
-            console.log(length);
+    //         console.log("\n3. Merging video files");
+    //         // await new Promise(r => setTimeout(r, 1500));
+    //         mergeTwoVideoFiles("file0_output", "file1_output", 'output' + currentVideoIndex);
 
-            currentVideoLength += length;
+    //         // await new Promise(r => setTimeout(r, 1500));
 
-            deleteUnnecesaryFiles2();
-            deleteFile(OUTPUT_DIRECTORY_PATH + "/" + OUTPUT_DIRECTORY_NAME + "/" + "output" + (currentVideoIndex - 1) + ".mp4");
-        }
+    //         console.log("\n4. Checking Video length");
+
+    //         let length = await getVideoDuration('output' + currentVideoIndex+ '.mp4')
+
+    //         console.log(length);
+
+    //         currentVideoLength += length;
+
+    //         deleteUnnecesaryFiles();
+
+    //     }
+    //     else {
+
+    //         console.log("\n1. Downloading ");
+    //         downloadAudioAndVideoFiles(posts[currentVideoIndex + 1], "file0");
+
+
+    //         await new Promise(r => setTimeout(r, 1500));
+
+    //         console.log("\n2. Merging audio with video");
+    //         mergeAudioAndVideoFiles(posts[currentVideoIndex + 1], "file0");
+
+    //         await new Promise(r => setTimeout(r, 1500));
+
+    //         console.log("\n3. Merging video files");
+    //         await new Promise(r => setTimeout(r, 1500));
+    //         mergeTwoVideoFiles("file0_output", "output" + (currentVideoIndex - 1), 'output' + currentVideoIndex);
+
+    //         await new Promise(r => setTimeout(r, 1500));
+
+    //         console.log("\n4. Checking Video length");
+
+    //         let length = await getVideoDuration("file0_output" + '.mp4')
+
+    //         console.log(length);
+
+    //         currentVideoLength += length;
+
+    //         deleteUnnecesaryFiles2();
+    //         deleteFile(OUTPUT_DIRECTORY_PATH + "/" + OUTPUT_DIRECTORY_NAME + "/" + "output" + (currentVideoIndex - 1) + ".mp4");
+    //     }
 
 
 
 
 
-        console.log("&&&&&&&&&&&&&&&&&&&&&&&&&\n")
+    //     console.log("&&&&&&&&&&&&&&&&&&&&&&&&&\n")
 
-        // currentVideoLength += 30;
+    //     // currentVideoLength += 30;
 
-        currentVideoIndex++;
+    //     currentVideoIndex++;
 
 
-    }
+    // }
 
-    console.log(currentVideoLength);
+    // console.log(currentVideoLength);
 
 };
 
