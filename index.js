@@ -49,18 +49,18 @@ const fetchAndRun = async (subreddit, afterParam) => {
         downloadAudioAndVideoFiles(posts[0], "file0");
         downloadAudioAndVideoFiles(posts[1], "file1");
     
-        await new Promise(r => setTimeout(r, 2000));
+        await new Promise(r => setTimeout(r, 1500));
     
         console.log("\n2. Merging audio with video");
         mergeAudioAndVideoFiles(posts[0], "file0");
         mergeAudioAndVideoFiles(posts[1], "file1");
     
-        await new Promise(r => setTimeout(r, 2000));
+        await new Promise(r => setTimeout(r, 1500));
     
         console.log("\n3. Merging video files");
         mergeTwoVideoFiles("file0_output", "file1_output", "output");
     
-        await new Promise(r => setTimeout(r, 2000));
+        await new Promise(r => setTimeout(r, 1500));
     
         console.log("\n4. Checking Video length");
         console.log(await getVideoDuration('output.mp4'));
@@ -82,28 +82,28 @@ const fetchAndRun = async (subreddit, afterParam) => {
             downloadAudioAndVideoFiles(posts[0], "file0");
 
 
-            await new Promise(r => setTimeout(r, 4000));
+            await new Promise(r => setTimeout(r, 1500));
             //deleteFile(OUTPUT_DIRECTORY_PATH + "/"+OUTPUT_DIRECTORY_NAME+"/"+ "temp_output.mp4");
 
             downloadAudioAndVideoFiles(posts[1], "file1");
 
-            await new Promise(r => setTimeout(r, 4000));
+            await new Promise(r => setTimeout(r, 1500));
             // deleteFile(OUTPUT_DIRECTORY_PATH + "/"+OUTPUT_DIRECTORY_NAME+"/"+ "temp_output.mp4");
 
             console.log("\n2. Merging audio with video");
             await mergeAudioAndVideoFiles(posts[0], "file0");
 
-            await new Promise(r => setTimeout(r, 2000));
+            await new Promise(r => setTimeout(r, 1500));
 
             await mergeAudioAndVideoFiles(posts[1], "file1");
 
-            await new Promise(r => setTimeout(r, 2000));
+            await new Promise(r => setTimeout(r, 1500));
 
             console.log("\n3. Merging video files");
-            await new Promise(r => setTimeout(r, 2000));
+            await new Promise(r => setTimeout(r, 1500));
             mergeTwoVideoFiles("file0_output", "file1_output", 'output' + currentVideoIndex);
 
-            await new Promise(r => setTimeout(r, 2000));
+            await new Promise(r => setTimeout(r, 1500));
 
             console.log("\n4. Checking Video length");
 
@@ -122,18 +122,18 @@ const fetchAndRun = async (subreddit, afterParam) => {
             downloadAudioAndVideoFiles(posts[currentVideoIndex + 1], "file0");
 
 
-            await new Promise(r => setTimeout(r, 2000));
+            await new Promise(r => setTimeout(r, 1500));
 
             console.log("\n2. Merging audio with video");
             mergeAudioAndVideoFiles(posts[currentVideoIndex + 1], "file0");
 
-            await new Promise(r => setTimeout(r, 2000));
+            await new Promise(r => setTimeout(r, 1500));
 
             console.log("\n3. Merging video files");
-            await new Promise(r => setTimeout(r, 2000));
+            await new Promise(r => setTimeout(r, 1500));
             mergeTwoVideoFiles("file0_output", "output" + (currentVideoIndex - 1), 'output' + currentVideoIndex);
 
-            await new Promise(r => setTimeout(r, 2000));
+            await new Promise(r => setTimeout(r, 1500));
 
             console.log("\n4. Checking Video length");
 

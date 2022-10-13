@@ -46,17 +46,20 @@ export function downloadAudioAndVideoFiles(post, filename) {
 
 }
 
-export async function mergeAudioAndVideoFiles(post, filename) {
+export function mergeAudioAndVideoFiles(post, filename) {
     child_process.execSync(`ffmpeg -i ${filename}.mp4 -i ${filename}.mp3 -c copy temp_output.mp4`
         ,
-        { cwd: `${OUTPUT_DIRECTORY_PATH}/${OUTPUT_DIRECTORY_NAME}` }
+        {
+            cwd: `${OUTPUT_DIRECTORY_PATH}/${OUTPUT_DIRECTORY_NAME}`,
+            stdio: ['ignore', 'ignore', 'ignore']
+        }
         // ,
         // (error, stdout, stderr)=>{handleChildProcessErros(error, stdout, stderr)}
     );
 
     console.log("111111111111111111111111111111111");
 
-    await new Promise(r => setTimeout(r, 1000));
+    // await new Promise(r => setTimeout(r, 1000));
 
 
     child_process.execSync(`ffmpeg -i temp_output.mp4 -f lavfi -i anullsrc=channel_layout=stereo:sample_rate=44100 \
@@ -70,7 +73,7 @@ export async function mergeAudioAndVideoFiles(post, filename) {
 
     deleteFile(OUTPUT_DIRECTORY_PATH + "/" + OUTPUT_DIRECTORY_NAME + "/" + "temp_output.mp4");
 
-    await new Promise(r => setTimeout(r, 1000));
+    // await new Promise(r => setTimeout(r, 1000));
 
     console.log("22222222222222222222222222222");
     // deleteFile(OUTPUT_DIRECTORY_PATH + "/"+OUTPUT_DIRECTORY_NAME+"/"+ "temp_output.mp4");
@@ -88,7 +91,8 @@ export function mergeTwoVideoFiles(filename1, filename2, outputVideoName) {
     ffmpeg -i ${filename2}.mp4 -c copy intermediate2.ts
     ffmpeg -i "concat:intermediate1.ts|intermediate2.ts" -c copy ${outputVideoName}.mp4`
         ,
-        { cwd: `${OUTPUT_DIRECTORY_PATH}/${OUTPUT_DIRECTORY_NAME}` }
+        { cwd: `${OUTPUT_DIRECTORY_PATH}/${OUTPUT_DIRECTORY_NAME}` ,
+        stdio: ['ignore', 'ignore', 'ignore']}
         ,
         (error, stdout, stderr) => { handleChildProcessErros(error, stdout, stderr) }
     );
