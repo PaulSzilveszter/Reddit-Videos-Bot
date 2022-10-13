@@ -73,6 +73,7 @@ export function downloadAudioAndVideoFiles(post, filename) {
 }
 
 export function mergeAudioAndVideoFiles(post, filename) {
+
     child_process.execSync(`ffmpeg -i ${filename}.mp4 -i ${filename}.mp3 -c copy temp_output.mp4`
         ,
         {
@@ -83,6 +84,7 @@ export function mergeAudioAndVideoFiles(post, filename) {
         // (error, stdout, stderr)=>{handleChildProcessErros(error, stdout, stderr)}
     );
 
+    
     // console.log("111111111111111111111111111111111");
 
     // await new Promise(r => setTimeout(r, 1000));
