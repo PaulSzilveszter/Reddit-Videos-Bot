@@ -5,7 +5,7 @@ import * as child_process from 'child_process';
 import { OUTPUT_DIRECTORY_PATH, OUTPUT_DIRECTORY_NAME, CHILD_PROCESS_DIR } from "../running_parameters.js";
 
 import { handleChildProcessErros, deleteFile } from './ErrorHandlingModule.mjs';
-import { stderr, stdout } from 'process';
+import { checkAudioFile } from "./FfmpegModule.mjs"
 
 function initializeOutputDirectory(filepath) {
     const FINAL_PATH = filepath + `/${OUTPUT_DIRECTORY_NAME}`;
@@ -74,32 +74,32 @@ export function downloadAudioAndVideoFiles(post, filename) {
 
 export function mergeAudioAndVideoFiles(post, filename) {
 
-    child_process.execSync(`ffmpeg -i ${filename}.mp4 -i ${filename}.mp3 -c copy temp_output.mp4`
-        ,
-        {
-            cwd: `${OUTPUT_DIRECTORY_PATH}/${OUTPUT_DIRECTORY_NAME}`,
-            stdio: ['ignore', 'ignore', 'pipe']
-        }
-        // ,
-        // (error, stdout, stderr)=>{handleChildProcessErros(error, stdout, stderr)}
-    );
+    if (checkAudioFile(filename)) {
+        console.log("11111111111");
+        child_process.execSync(`ffmpeg -i ${filename}.mp4 -i ${filename}.mp3 -c copy ${filename}_output.mp4`
+            ,
+            {
+                cwd: `${OUTPUT_DIRECTORY_PATH}/${OUTPUT_DIRECTORY_NAME}`,
+                stdio: ['ignore', 'ignore', 'pipe']
+            }
+            // ,
+            // (error, stdout, stderr)=>{handleChildProcessErros(error, stdout, stderr)}
+        );
 
-    
-    // console.log("111111111111111111111111111111111");
+    } else {
+        console.log("22222222222222222");
 
-    // await new Promise(r => setTimeout(r, 1000));
-
-
-    child_process.execSync(`ffmpeg -i temp_output.mp4 -f lavfi -i anullsrc=channel_layout=stereo:sample_rate=44100 \
+        child_process.execSync(`ffmpeg -i ${filename}.mp4 -f lavfi -i anullsrc=channel_layout=stereo:sample_rate=44100 \
     -c:v copy -shortest ${filename}_output.mp4`
-        ,
-        {
-            cwd: `${OUTPUT_DIRECTORY_PATH}/${OUTPUT_DIRECTORY_NAME}`,
-            stdio: ['ignore', 'ignore', 'ignore']
-        }
-    );
+            ,
+            {
+                cwd: `${OUTPUT_DIRECTORY_PATH}/${OUTPUT_DIRECTORY_NAME}`,
+                stdio: ['ignore', 'ignore', 'ignore']
+            }
+        );
+    }
 
-    deleteFile(OUTPUT_DIRECTORY_PATH + "/" + OUTPUT_DIRECTORY_NAME + "/" + "temp_output.mp4");
+    // deleteFile(OUTPUT_DIRECTORY_PATH + "/" + OUTPUT_DIRECTORY_NAME + "/" + "temp_output.mp4");
 
     // await new Promise(r => setTimeout(r, 1000));
 
