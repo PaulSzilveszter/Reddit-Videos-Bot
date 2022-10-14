@@ -31,7 +31,9 @@ export function checkAudioFile(filename){
     stderr = stderr.toString().split("\n");
     let k  = stderr[stderr.length-2].split(" ")[1];
 
-    if(k  == "End"){
+    console.log(k);
+
+    if(k  == "Invalid"){
         console.log("The audio file is INVALID...");
         return false;
     }
