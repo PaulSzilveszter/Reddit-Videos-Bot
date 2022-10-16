@@ -15,3 +15,16 @@ export const SUBREDDIT = "funnyvideos";
 export const VIDEO_LENGTH = 150 // in seconds
 
 
+
+
+//########## DATABASE ###########//
+import * as fs from 'fs';
+
+export let DATABASE = new Map();
+
+fs.readFile("./database/database.txt", function(err, buf){
+    console.log(buf.toString());
+})
+
+
+

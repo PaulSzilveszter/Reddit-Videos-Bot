@@ -3,7 +3,7 @@ import * as https from 'https';
 import * as fs from 'fs';
 import * as child_process from 'child_process';
 
-import { SUBREDDIT, postsPerRequest, maxPostsPerFetch, maxRequests, OUTPUT_DIRECTORY_PATH, OUTPUT_DIRECTORY_NAME, VIDEO_LENGTH } from "./running_parameters.js";
+import { SUBREDDIT, postsPerRequest, maxPostsPerFetch, maxRequests, OUTPUT_DIRECTORY_PATH, OUTPUT_DIRECTORY_NAME, VIDEO_LENGTH, DATABASE } from "./running_parameters.js";
 
 import { Post } from "./Modules/ClassesModule.mjs";
 import { parseResults } from "./Modules/ParseModule.mjs";
@@ -17,6 +17,9 @@ let currentVideoIndex = 0;
 
 let posts = []
 const responses = [];
+
+
+console.log(DATABASE.get(""));
 
 function formatVideos(currentVideoIndex, VIDEO_LENGTH, posts) {
     while (currentVideoLength < VIDEO_LENGTH) {
