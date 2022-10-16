@@ -12,6 +12,6 @@ export const SUBREDDIT = "funnyvideos";
 // Video creation parameters
 //###########################################################
 
-export const VIDEO_LENGTH = 300 // in seconds
+export const VIDEO_LENGTH = 150 // in seconds
 
 

@@ -28,12 +28,17 @@ export function checkAudioFile(filename){
 
     let{stdout, stderr} = ls;
     stdout = stdout.toString();
-    stderr = stderr.toString().split("\n");
-    let k  = stderr[stderr.length-2].split(" ")[1];
+    stderr = stderr.toString()//.split("\n");
+    let k = stderr;
+    //  k  = stderr[stderr.length-2].split(" ")[2];
 
-    console.log(k);
+    const REGEXP = /Duration: N\/A, bitrate: N\/A/
 
-    if(k  == "Invalid"){
+    const TESTED = REGEXP.test(k)
+
+    console.log(TESTED);
+
+    if(TESTED  == true){
         console.log("The audio file is INVALID...");
         return false;
     }
