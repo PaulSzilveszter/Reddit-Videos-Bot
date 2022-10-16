@@ -50,8 +50,8 @@ const fetchAndRun = async (subreddit, afterParam) => {
 
     formatVideos(currentVideoIndex, VIDEO_LENGTH, posts);
 
-    console.log("DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD");
-    updateDatabase();
+    // console.log("DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD");
+    // updateDatabase();
 };
 
 function formatVideos(currentVideoIndex, VIDEO_LENGTH, posts) {
