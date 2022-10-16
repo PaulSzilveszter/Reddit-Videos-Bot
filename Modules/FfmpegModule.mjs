@@ -32,9 +32,9 @@ export function checkAudioFile(filename){
     let k = stderr;
     //  k  = stderr[stderr.length-2].split(" ")[2];
 
-    console.log(k+"\n####################")
+    // console.log(k+"\n####################")
 
-    const REGEXP = /(Duration: N\/A, bitrate: N\/A)|(file0.mp3: Invalid argument)/
+    const REGEXP = /(Duration: N\/A, bitrate: N\/A)|(file0.mp3: Invalid argument)|(file1.mp3: Invalid argument)/
 
     const TESTED = REGEXP.test(k)
 

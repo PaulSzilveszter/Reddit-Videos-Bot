@@ -6,6 +6,7 @@ import { OUTPUT_DIRECTORY_PATH, OUTPUT_DIRECTORY_NAME, CHILD_PROCESS_DIR } from 
 
 import { handleChildProcessErros, deleteFile } from './ErrorHandlingModule.mjs';
 import { checkAudioFile } from "./FfmpegModule.mjs"
+import { writeToDatabase } from './DatabaseInitialization.mjs';
 
 function initializeOutputDirectory(filepath) {
     const FINAL_PATH = filepath + `/${OUTPUT_DIRECTORY_NAME}`;
@@ -66,6 +67,11 @@ function downloadFile(URL, filename) {
 }
 
 export function downloadAudioAndVideoFiles(post, filename) {
+
+    console.log("URL to the Video:\n", post.video_url, "\n");
+    writeToDatabase(post.video_url, true);
+
+
     downloadFile(post.video_url, filename + ".mp4");
     downloadFile(post.audio_url, filename + ".mp3");
 

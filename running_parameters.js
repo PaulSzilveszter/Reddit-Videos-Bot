@@ -12,7 +12,7 @@ export const SUBREDDIT = "funnyvideos";
 // Video creation parameters
 //###########################################################
 
-export const VIDEO_LENGTH = 150 // in seconds
+export const VIDEO_LENGTH = 1 // in seconds
 
 
 
@@ -22,9 +22,7 @@ import * as fs from 'fs';
 
 export let DATABASE = new Map();
 
-fs.readFile("./database/database.txt", function(err, buf){
-    console.log(buf.toString());
-})
+
 
 
 
