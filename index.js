@@ -20,7 +20,7 @@ let posts = []
 const responses = [];
 
 //##########DATABASE STUFF#############//
-console.log(DATABASE.get(""));
+
 
 databaseInitialization();
 
@@ -51,7 +51,7 @@ const fetchAndRun = async (subreddit, afterParam) => {
     formatVideos(currentVideoIndex, VIDEO_LENGTH, posts);
 
     // console.log("DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD");
-    // updateDatabase();
+    updateDatabase();
 };
 
 function formatVideos(currentVideoIndex, VIDEO_LENGTH, posts) {

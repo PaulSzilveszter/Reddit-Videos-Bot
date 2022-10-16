@@ -23,7 +23,8 @@ export const parseResults = (responses) => {
 
                 //    console.log(`Video URL: ${VIDEO_URL}`);
                 //    console.log(`Audio URL: ${AUDIO_URL}`);
-                console.log("DATABASE:\n", DATABASE);
+                
+                // console.log("DATABASE:\n", DATABASE);
                 if(!DATABASE.get(VIDEO_URL)){
                     posts.push(new Post(VIDEO_URL, AUDIO_URL));
                 }

@@ -81,7 +81,7 @@ export function downloadAudioAndVideoFiles(post, filename) {
 export function mergeAudioAndVideoFiles(post, filename) {
 
     if (checkAudioFile(filename)) {
-        console.log("11111111111");
+        // console.log("11111111111");
         child_process.execSync(`ffmpeg -i ${filename}.mp4 -i ${filename}.mp3 -c copy ${filename}_output.mp4`
             ,
             {
@@ -93,7 +93,7 @@ export function mergeAudioAndVideoFiles(post, filename) {
         );
 
     } else {
-        console.log("22222222222222222");
+        // console.log("22222222222222222");
 
         child_process.execSync(`ffmpeg -i ${filename}.mp4 -f lavfi -i anullsrc=channel_layout=stereo:sample_rate=44100 \
     -c:v copy -shortest ${filename}_output.mp4`
