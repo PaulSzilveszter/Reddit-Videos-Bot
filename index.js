@@ -3,7 +3,7 @@ import * as https from 'https';
 import * as fs from 'fs';
 import * as child_process from 'child_process';
 
-import { SUBREDDIT, postsPerRequest, maxPostsPerFetch, maxRequests, OUTPUT_DIRECTORY_PATH, OUTPUT_DIRECTORY_NAME, VIDEO_LENGTH, DATABASE } from "./running_parameters.js";
+import { SUBREDDIT, postsPerRequest, maxPostsPerFetch, maxRequests, OUTPUT_DIRECTORY_PATH, OUTPUT_DIRECTORY_NAME, VIDEO_LENGTH, DATABASE, CATEGORY, TIMEFRAME } from "./running_parameters.js";
 
 import { Post } from "./Modules/ClassesModule.mjs";
 import { parseResults } from "./Modules/ParseModule.mjs";
@@ -32,8 +32,8 @@ const fetchAndRun = async (subreddit, afterParam) => {
 
     {
         const response = await fetch(
-            `https://www.reddit.com/r/${subreddit}.json?limit=${postsPerRequest}${afterParam ? '&after=' + afterParam : ''
-            }`
+            `https://www.reddit.com/r/${subreddit}${CATEGORY}.json?limit=${postsPerRequest}${afterParam ? '&after=' + afterParam : ''
+            }${CATEGORY == "/top" ? ("&t="+TIMEFRAME) : ""}`
         );
 
         const responseJson = await response.json();
@@ -55,7 +55,7 @@ const fetchAndRun = async (subreddit, afterParam) => {
 };
 
 function formatVideos(currentVideoIndex, VIDEO_LENGTH, posts) {
-    while (currentVideoLength < VIDEO_LENGTH) {
+    while (currentVideoLength < VIDEO_LENGTH && currentVideoIndex + 1 < posts.length /*&& posts[currentVideoIndex+1].video_url != undefined*/) {
 
 
         console.log("#########################")

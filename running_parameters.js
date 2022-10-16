@@ -7,7 +7,10 @@ export const postsPerRequest = 100;
 export const maxPostsPerFetch = 300;
 export const maxRequests = maxPostsPerFetch / postsPerRequest;
 
-export const SUBREDDIT = "funnyvideos";
+export const SUBREDDIT = "MemeVideos";
+export const CATEGORY = "/top"
+export const TIMEFRAME = "week"
+
 
 // Video creation parameters
 //###########################################################
