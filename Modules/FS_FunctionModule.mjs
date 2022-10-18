@@ -123,7 +123,7 @@ export function mergeAudioAndVideoFiles(post, filename) {
 export function mergeTwoVideoFiles(filename1, filename2, outputVideoName) {
     child_process.execSync(`ffmpeg -i ${filename1}.mp4 -c copy intermediate1.ts
     ffmpeg -i ${filename2}.mp4 -c copy intermediate2.ts
-    ffmpeg -i "concat:intermediate1.ts|intermediate2.ts" -c copy ${outputVideoName}.mp4`
+    ffmpeg -i "concat:intermediate2.ts|intermediate1.ts" -c copy ${outputVideoName}.mp4`
         ,
         {
             cwd: `${OUTPUT_DIRECTORY_PATH}/${OUTPUT_DIRECTORY_NAME}`,
