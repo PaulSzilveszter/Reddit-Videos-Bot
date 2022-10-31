@@ -2,7 +2,7 @@ import * as child_process from 'child_process';
 
 import { OUTPUT_DIRECTORY_PATH, OUTPUT_DIRECTORY_NAME, CHILD_PROCESS_DIR } from "../running_parameters.js";
 
-import { handleChildProcessErros } from "./ErrorHandlingModule.mjs"
+import { deleteFile, handleChildProcessErros } from "./ErrorHandlingModule.mjs"
 
 export  function getVideoDuration(filename) {
 
@@ -48,6 +48,19 @@ export function checkAudioFile(filename){
         console.log("The audio file is VALID...");
         return true;
     }
+}
+
+export function changeAspectRatio(aspectRatio, filename){
+    child_process.execSync(`ffmpeg -i ${filename}.mp4 -vf "scale=${aspectRatio}:force_original_aspect_ratio=decrease,pad=${aspectRatio}:-1:-1:color=black" FINAL_OUTPUT.mp4`
+            ,
+            {
+                cwd: `${OUTPUT_DIRECTORY_PATH}/${OUTPUT_DIRECTORY_NAME}`,
+                stdio: ['ignore', 'ignore', 'pipe']
+            }
+    
+        );
+    deleteFile(OUTPUT_DIRECTORY_PATH + "/" + OUTPUT_DIRECTORY_NAME + "/" +  `${filename}.mp4`);
+        //EX ASPECT RATIO "1280:720"
 }
 
 

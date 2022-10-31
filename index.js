@@ -3,12 +3,12 @@ import * as https from 'https';
 import * as fs from 'fs';
 import * as child_process from 'child_process';
 
-import { SUBREDDIT, postsPerRequest, maxPostsPerFetch, maxRequests, OUTPUT_DIRECTORY_PATH, OUTPUT_DIRECTORY_NAME, VIDEO_LENGTH, DATABASE, CATEGORY, TIMEFRAME } from "./running_parameters.js";
+import { SUBREDDIT, postsPerRequest, maxPostsPerFetch, maxRequests, OUTPUT_DIRECTORY_PATH, OUTPUT_DIRECTORY_NAME, VIDEO_LENGTH, DATABASE, CATEGORY, TIMEFRAME, UPDATE_DATABASE , ASPECT_RATIO} from "./running_parameters.js";
 
 import { Post } from "./Modules/ClassesModule.mjs";
 import { parseResults } from "./Modules/ParseModule.mjs";
 import { mergeAudioAndVideoFiles, downloadAudioAndVideoFiles, mergeTwoVideoFiles, deleteUnnecesaryFiles, deleteUnnecesaryFiles2 } from "./Modules/FS_FunctionModule.mjs";
-import { getVideoDuration } from "./Modules/FfmpegModule.mjs";
+import { getVideoDuration, changeAspectRatio } from "./Modules/FfmpegModule.mjs";
 import { deleteFile } from "./Modules/ErrorHandlingModule.mjs";
 import { databaseInitialization, updateDatabase } from "./Modules/DatabaseInitialization.mjs"
 
@@ -51,7 +51,9 @@ const fetchAndRun = async (subreddit, afterParam) => {
     formatVideos(currentVideoIndex, VIDEO_LENGTH, posts);
 
     // console.log("DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD");
-    updateDatabase();
+    if(UPDATE_DATABASE){
+        updateDatabase();
+    }
 };
 
 function formatVideos(currentVideoIndex, VIDEO_LENGTH, posts) {
@@ -143,9 +145,11 @@ function formatVideos(currentVideoIndex, VIDEO_LENGTH, posts) {
 
 
         currentVideoIndex++;
-
+        
 
     }
+    currentVideoIndex--;
+    changeAspectRatio(ASPECT_RATIO, `output${currentVideoIndex}`);
 
 }
 fetchAndRun(SUBREDDIT)

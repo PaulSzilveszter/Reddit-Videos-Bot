@@ -80,6 +80,16 @@ export function downloadAudioAndVideoFiles(post, filename) {
 
 export function mergeAudioAndVideoFiles(post, filename) {
 
+    // child_process.execSync(`ffmpeg -i ${filename}.mp4 -vf "scale=1280:720:force_original_aspect_ratio=decrease,pad=1280:720:-1:-1:color=black" ${filename}1.mp4`
+    //         ,
+    //         {
+    //             cwd: `${OUTPUT_DIRECTORY_PATH}/${OUTPUT_DIRECTORY_NAME}`,
+    //             stdio: ['ignore', 'ignore', 'pipe']
+    //         }
+    
+    //     );
+
+
     if (checkAudioFile(filename)) {
         // console.log("11111111111");
         child_process.execSync(`ffmpeg -i ${filename}.mp4 -i ${filename}.mp3 -c copy ${filename}_output.mp4`
@@ -105,7 +115,7 @@ export function mergeAudioAndVideoFiles(post, filename) {
         );
     }
 
-    // deleteFile(OUTPUT_DIRECTORY_PATH + "/" + OUTPUT_DIRECTORY_NAME + "/" + "temp_output.mp4");
+    // deleteFile(OUTPUT_DIRECTORY_PATH + "/" + OUTPUT_DIRECTORY_NAME + "/" + `${filename}1.mp4`);
 
     // await new Promise(r => setTimeout(r, 1000));
 

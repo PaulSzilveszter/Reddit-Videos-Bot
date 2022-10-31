@@ -16,8 +16,8 @@ export const TIMEFRAME = "week"
 //###########################################################
 
 export const VIDEO_LENGTH = 420 // in seconds
-
-
+export const ASPECT_RATIO = "1920:1080"; //EX ASPECT RATIO "1280:720"
+export const UPDATE_DATABASE  = true;
 
 
 //########## DATABASE ###########//
