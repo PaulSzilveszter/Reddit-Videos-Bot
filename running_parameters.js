@@ -9,7 +9,7 @@ export const maxRequests = maxPostsPerFetch / postsPerRequest;
 
 export const SUBREDDIT = "MemeVideos";
 export const CATEGORY = "/top"
-export const TIMEFRAME = "week"
+export const TIMEFRAME = "year"
 
 
 // Video creation parameters
