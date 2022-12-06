@@ -16,7 +16,7 @@ export const parseResults = (responses) => {
         if (secure_media != null) {
 
 
-            if (secure_media.reddit_video != null) {
+            if (secure_media.reddit_video != null && Number(secure_media.reddit_video.duration)<=25) {
 
                 const VIDEO_URL = secure_media.reddit_video.fallback_url;
                 const AUDIO_URL = "https://v.redd.it/" + VIDEO_URL.split('/')[3] + "/DASH_audio.mp4";
