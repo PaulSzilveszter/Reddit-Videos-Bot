@@ -1,6 +1,6 @@
 import { Post } from './ClassesModule.mjs';
 
-import { DATABASE } from '../running_parameters.js';
+import { DATABASE, MAX_SUBVIDEO_LENGTH } from '../running_parameters.js';
 
 export const parseResults = (responses) => {
     const posts = []
@@ -16,7 +16,7 @@ export const parseResults = (responses) => {
         if (secure_media != null) {
 
 
-            if (secure_media.reddit_video != null && Number(secure_media.reddit_video.duration)<=25) {
+            if (secure_media.reddit_video != null && Number(secure_media.reddit_video.duration)<=MAX_SUBVIDEO_LENGTH) {
 
                 const VIDEO_URL = secure_media.reddit_video.fallback_url;
                 const AUDIO_URL = "https://v.redd.it/" + VIDEO_URL.split('/')[3] + "/DASH_audio.mp4";
